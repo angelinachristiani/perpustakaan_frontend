@@ -93,7 +93,7 @@ export default function DashboardAdmin() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="max-w-5xl p-6 mx-auto bg-white border border-pink-100 rounded-3xl shadow-xl"
+        className="max-w-5xl p-6 mx-auto bg-white border border-pink-100 shadow-xl rounded-3xl"
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-bold text-purple-700">✨ Kelola Buku</h2>
@@ -128,7 +128,7 @@ export default function DashboardAdmin() {
           />
           <label
             htmlFor="cover"
-            className="inline-block px-4 py-2 mt-1 text-center text-white bg-purple-500 rounded-xl cursor-pointer hover:bg-purple-600"
+            className="inline-block px-4 py-2 mt-1 text-center text-white bg-purple-500 cursor-pointer rounded-xl hover:bg-purple-600"
           >
             📁 Pilih Gambar
           </label>
@@ -149,44 +149,47 @@ export default function DashboardAdmin() {
         </form>
 
         {/* Daftar Buku */}
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {books.map((book) => (
-            <motion.div
-              key={book.id}
-              whileHover={{ scale: 1.02 }}
-              className="overflow-hidden bg-white border border-purple-100 rounded-2xl shadow-sm hover:shadow-md transition"
-            >
-              {book.cover && (
-                <img
-                  src={book.cover}
-                  alt="cover"
-                  className="object-cover w-full h-48 rounded-t-2xl"
-                />
-              )}
-              <div className="p-4">
-                <h3 className="text-lg font-bold text-gray-800">{book.title}</h3>
-                <p className="text-sm text-gray-600 mt-1">✍️ {book.author}</p>
-                <div className="flex gap-2 mt-4">
-                  <button
-                    onClick={() => handleEdit(book)}
-                    className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-yellow-400 rounded hover:bg-yellow-500"
-                  >
-                    <FiEdit /> Edit
-                  </button>
-                  <button
-                    onClick={() => handleDelete(book.id)}
-                    className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600"
-                  >
-                    <FiTrash2 /> Hapus
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+<div className="grid grid-cols-2 gap-6 sm:grid-cols-2 md:grid-cols-3">
+  {books.map((book) => (
+    <motion.div
+      key={book.id}
+      whileHover={{ scale: 1.02 }}
+      className="overflow-hidden transition bg-white border border-purple-100 shadow-sm rounded-2xl hover:shadow-md"
+    >
+      {book.cover && (
+        <div className="w-full overflow-hidden aspect-square">
+          <img
+            src={book.cover}
+            alt="cover"
+            className="object-cover w-full h-full"
+          />
         </div>
+      )}
+      <div className="p-4">
+        <h3 className="text-lg font-bold text-gray-800">{book.title}</h3>
+        <p className="mt-1 text-sm text-gray-600">✍️ {book.author}</p>
+        <div className="flex gap-2 mt-4">
+          <button
+            onClick={() => handleEdit(book)}
+            className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-yellow-400 rounded hover:bg-yellow-500"
+          >
+            <FiEdit /> Edit
+          </button>
+          <button
+            onClick={() => handleDelete(book.id)}
+            className="flex items-center gap-1 px-3 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600"
+          >
+            <FiTrash2 /> Hapus
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</div>
+
 
         {books.length === 0 && (
-          <p className="mt-6 text-center text-gray-500 italic">
+          <p className="mt-6 italic text-center text-gray-500">
             Belum ada buku yang ditambahkan.
           </p>
         )}

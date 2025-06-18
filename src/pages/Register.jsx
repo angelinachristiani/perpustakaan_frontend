@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import API from '../services/api';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { FiUserPlus } from 'react-icons/fi';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import API from "../services/api";
+import { motion } from "framer-motion";
+import { FiUserPlus } from "react-icons/fi";
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,83 +15,70 @@ export default function Register() {
   const register = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post('/register', form);
-      localStorage.setItem('token', res.data.token);
-      const me = await API.get('/me');
-      if (me.data.role === 'admin') navigate('/admin');
-      else navigate('/user');
+      await API.post("/register", form);
+      alert("✅ Berhasil daftar! Silakan login.");
+      navigate("/");
     } catch (err) {
       console.error(err.response?.data);
-      alert('Register gagal: ' + (err.response?.data?.message || 'Unknown error'));
+      const msg =
+        err.response?.data?.message || "Terjadi kesalahan saat mendaftar.";
+      alert(`❌ Register gagal:\n\n${msg}`);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-white flex items-center justify-center p-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 via-white to-blue-100">
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="bg-white shadow-2xl rounded-3xl p-8 max-w-md w-full border border-pink-200"
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md p-8 bg-white rounded-3xl shadow-xl border border-purple-200"
       >
-        <div className="text-center mb-6">
-          <FiUserPlus className="mx-auto text-4xl text-rose-500" />
-          <h2 className="text-2xl font-bold text-purple-700 mt-2">Buat Akun Baru ✨</h2>
-          <p className="text-sm text-gray-500">Daftarkan dirimu sekarang juga</p>
+        <div className="flex items-center justify-center mb-4">
+          <FiUserPlus className="text-3xl text-purple-600" />
         </div>
-
+        <h2 className="mb-6 text-2xl font-bold text-center text-purple-700">
+          Daftar Akun Baru
+        </h2>
         <form onSubmit={register} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Nama</label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 bg-pink-50"
-              placeholder="Nama Lengkap"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 bg-pink-50"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 rounded-xl border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300 bg-pink-50"
-              placeholder="••••••••"
-            />
-          </div>
-
+          <input
+            name="name"
+            placeholder="👤 Nama Lengkap"
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-xl bg-purple-50 focus:outline-none focus:ring-2 focus:ring-purple-300"
+          />
+          <input
+            name="email"
+            type="email"
+            placeholder="📧 Email"
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-xl bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="🔒 Password"
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border rounded-xl bg-pink-50 focus:outline-none focus:ring-2 focus:ring-pink-300"
+          />
           <button
             type="submit"
-            className="w-full bg-purple-500 text-white py-2 rounded-xl font-semibold hover:bg-purple-600 transition"
+            className="w-full py-2 font-semibold text-white transition bg-purple-500 rounded-xl hover:bg-purple-600"
           >
-            Register
+            Daftar
           </button>
         </form>
-
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Sudah punya akun?{' '}
-          <a href="/" className="text-purple-600 hover:underline">
-            Login di sini
-          </a>
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Sudah punya akun?{" "}
+          <Link
+            to="/"
+            className="font-medium text-purple-600 hover:underline"
+          >
+            Login disini
+          </Link>
         </p>
       </motion.div>
     </div>

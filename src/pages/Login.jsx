@@ -40,9 +40,16 @@ export default function Login() {
         <div className="flex items-center justify-center mb-4">
           <FiLogIn className="text-3xl text-purple-600" />
         </div>
+        
+        {/* 👇 Sapaan nama */}
+        <p className="mb-2 text-sm text-center text-pink-600 font-medium">
+          🌸 Welcome <span className="font-semibold">to Angelina's </span>  Library 💖
+        </p>
+
         <h2 className="mb-6 text-2xl font-bold text-center text-purple-700">
           Masuk ke Akunmu
         </h2>
+
         <form onSubmit={login} className="space-y-4">
           <input
             type="email"
@@ -67,6 +74,7 @@ export default function Login() {
             Login
           </button>
         </form>
+
         <p className="mt-4 text-sm text-center text-gray-600">
           Belum punya akun?{" "}
           <Link

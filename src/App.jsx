@@ -6,7 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import DataBuku from "./pages/DataBuku";
 import DataUser from "./pages/DataUser";
-
+import DataLagu from "./pages/DataLagu";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +25,7 @@ function App() {
   {/* Nested routes di dalam layout DashboardAdmin */}
   <Route index element={<DataBuku />} />
   <Route path="users" element={<DataUser />} />
+  <Route path="songs" element={<DataLagu />} />
 </Route>
 
 

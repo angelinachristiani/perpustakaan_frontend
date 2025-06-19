@@ -14,6 +14,8 @@ export default function SidebarAdmin() {
       <nav className="flex flex-col gap-2">
         <Link to="/admin" className={linkClass("/admin")}>📖 Data Buku</Link>
         <Link to="/admin/users" className={linkClass("/admin/users")}>👤 Data User</Link>
+<Link to="/admin/songs" className={linkClass("/admin/songs")}>👤 Data Lagu</Link>
+
         <button
           onClick={() => {
             if (window.confirm("Yakin logout?")) {

@@ -4,6 +4,8 @@ import DashboardAdmin from './pages/DashboardAdmin';
 import DashboardUser from './pages/DashboardUser';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import DataBuku from "./pages/DataBuku";
+import DataUser from "./pages/DataUser";
 
 function App() {
   return (
@@ -12,14 +14,20 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute role="admin">
-              <DashboardAdmin />
-            </ProtectedRoute>
-          }
-        />
+<Route
+  path="/admin"
+  element={
+    <ProtectedRoute role="admin">
+      <DashboardAdmin /> {/* Ini sebagai layout wrapper */}
+    </ProtectedRoute>
+  }
+>
+  {/* Nested routes di dalam layout DashboardAdmin */}
+  <Route index element={<DataBuku />} />
+  <Route path="users" element={<DataUser />} />
+</Route>
+
+
         <Route
           path="/user"
           element={
